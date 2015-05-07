@@ -1,13 +1,15 @@
-package in.warecon.sas.objects;
+package in.warecon.sas.model;
 
-import java.util.ArrayList;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
-public class Teacher extends Person {
+@Entity
+
+public class Admin extends Person {
 	private int employeeNo;
 	private boolean isMarried;
-	private boolean isClassTeacher;
 	private int salary;
-	private ArrayList<Subject> subjects;
 
 	/**
 	 * @return the employeeNo
@@ -40,21 +42,6 @@ public class Teacher extends Person {
 	}
 
 	/**
-	 * @return the isClassTeacher
-	 */
-	public boolean isClassTeacher() {
-		return isClassTeacher;
-	}
-
-	/**
-	 * @param isClassTeacher
-	 *            the isClassTeacher to set
-	 */
-	public void setClassTeacher(boolean isClassTeacher) {
-		this.isClassTeacher = isClassTeacher;
-	}
-
-	/**
 	 * @return the salary
 	 */
 	public int getSalary() {
@@ -67,21 +54,6 @@ public class Teacher extends Person {
 	 */
 	public void setSalary(int salary) {
 		this.salary = salary;
-	}
-
-	/**
-	 * @return the subjects
-	 */
-	public ArrayList<Subject> getSubjects() {
-		return subjects;
-	}
-
-	/**
-	 * @param subjects
-	 *            the subjects to set
-	 */
-	public void setSubjects(ArrayList<Subject> subjects) {
-		this.subjects = subjects;
 	}
 
 }

@@ -1,28 +1,44 @@
 /**
  * 
  */
-package in.warecon.sas.objects;
+package in.warecon.sas.model;
 
-import java.util.ArrayList;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Date;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 
 /**
  * @author ebarasi
  *
  */
-public class Person implements PersonActions {
-
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Person {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	// Surrogate key acts as PK
 	private int id;
 	private String username;
 	private String password;
-	private String salutation;
+	private Salutation salutation;
 	private String firstName;
 	private String middleName;
 	private String lastName;
 	private String name;
 	private String gender;
 	private String email;
-	private Address address;
+	@OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
+	private Set<Address> address;
 	private String mobile;
 	private String fax;
 	private String telephone;
@@ -34,7 +50,7 @@ public class Person implements PersonActions {
 	private Date doj;// Date of joining
 	private Date dol;// Date of leaving
 	private String organizationName;
-	private boolean hasWhatsapp;
+	private boolean hasWhatsApp;
 	private String whatsAppNumber;
 
 	/**
@@ -86,6 +102,7 @@ public class Person implements PersonActions {
 	 * @return the name
 	 */
 	public String getName() {
+
 		return name;
 	}
 
@@ -94,7 +111,14 @@ public class Person implements PersonActions {
 	 *            the name to set
 	 */
 	public void setName(String name) {
-		this.name = name;
+
+		if (middleName.trim().equalsIgnoreCase("") || middleName.trim() == null) {
+			this.name = firstName.trim() + " " + lastName.trim();
+		} else {
+			this.name = firstName.trim() + " " + middleName.trim() + " "
+					+ lastName.trim();
+		}
+
 	}
 
 	/**
@@ -130,7 +154,7 @@ public class Person implements PersonActions {
 	/**
 	 * @return the address
 	 */
-	public Address getAddress() {
+	public Set<Address> getAddress() {
 		return address;
 	}
 
@@ -138,7 +162,7 @@ public class Person implements PersonActions {
 	 * @param address
 	 *            the address to set
 	 */
-	public void setAddress(Address address) {
+	public void setAddress(Set<Address> address) {
 		this.address = address;
 	}
 
@@ -221,7 +245,7 @@ public class Person implements PersonActions {
 	 * @return the hasWhatsapp
 	 */
 	public boolean isHasWhatsapp() {
-		return hasWhatsapp;
+		return hasWhatsApp;
 	}
 
 	/**
@@ -229,7 +253,7 @@ public class Person implements PersonActions {
 	 *            the hasWhatsapp to set
 	 */
 	public void setHasWhatsapp(boolean hasWhatsapp) {
-		this.hasWhatsapp = hasWhatsapp;
+		this.hasWhatsApp = hasWhatsapp;
 	}
 
 	/**
@@ -296,133 +320,76 @@ public class Person implements PersonActions {
 	 * @return the password
 	 */
 	public String getPassword() {
-		return password;
+
+		Base64.Decoder decoder = Base64.getDecoder();
+		byte[] decodedPassword = decoder.decode(password);
+
+		return new String(decodedPassword);
 	}
 
 	/**
 	 * @param password
-	 *            the password to set
+	 *            the password to set encoded in Base64
 	 */
 	public void setPassword(String password) {
-		this.password = password;
+		Base64.Encoder encoder = Base64.getEncoder();
+		String encodedPassword = encoder.encodeToString(password
+				.getBytes(StandardCharsets.UTF_8));
+		this.password = encodedPassword;
 	}
 
-	@Override
-	public boolean add(Person person) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean delete(Person person) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean update(Person person) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Person getPerson(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Person> getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * @return the salutation
-	 */
-	public String getSalutation() {
+	public Salutation getSalutation() {
 		return salutation;
 	}
 
-	/**
-	 * @param salutation
-	 *            the salutation to set
-	 */
-	public void setSalutation(String salutation) {
+	public void setSalutation(Salutation salutation) {
 		this.salutation = salutation;
 	}
 
-	/**
-	 * @return the middleName
-	 */
 	public String getMiddleName() {
 		return middleName;
 	}
 
-	/**
-	 * @param middleName
-	 *            the middleName to set
-	 */
 	public void setMiddleName(String middleName) {
 		this.middleName = middleName;
 	}
 
-	/**
-	 * @return the fax
-	 */
 	public String getFax() {
 		return fax;
 	}
 
-	/**
-	 * @param fax
-	 *            the fax to set
-	 */
 	public void setFax(String fax) {
 		this.fax = fax;
 	}
 
-	/**
-	 * @return the telephone
-	 */
 	public String getTelephone() {
 		return telephone;
 	}
 
-	/**
-	 * @param telephone
-	 *            the telephone to set
-	 */
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
 
-	/**
-	 * @return the spouseName
-	 */
 	public String getSpouseName() {
 		return spouseName;
 	}
 
-	/**
-	 * @param spouseName
-	 *            the spouseName to set
-	 */
 	public void setSpouseName(String spouseName) {
 		this.spouseName = spouseName;
 	}
 
-	/**
-	 * @return the whatsAppNumber
-	 */
+	public boolean isHasWhatsApp() {
+		return hasWhatsApp;
+	}
+
+	public void setHasWhatsApp(boolean hasWhatsApp) {
+		this.hasWhatsApp = hasWhatsApp;
+	}
+
 	public String getWhatsAppNumber() {
 		return whatsAppNumber;
 	}
 
-	/**
-	 * @param whatsAppNumber
-	 *            the whatsAppNumber to set
-	 */
 	public void setWhatsAppNumber(String whatsAppNumber) {
 		this.whatsAppNumber = whatsAppNumber;
 	}

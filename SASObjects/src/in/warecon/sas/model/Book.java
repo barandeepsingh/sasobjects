@@ -1,5 +1,8 @@
-package in.warecon.sas.objects;
+package in.warecon.sas.model;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Book {
 	private int bookId;
 	private String bookName;
@@ -68,8 +71,6 @@ public class Book {
 		this.isbn = isbn;
 	}
 
-
-
 	/**
 	 * @return the edition
 	 */
@@ -93,7 +94,8 @@ public class Book {
 	}
 
 	/**
-	 * @param subject the subject to set
+	 * @param subject
+	 *            the subject to set
 	 */
 	public void setSubject(Subject subject) {
 		this.subject = subject;

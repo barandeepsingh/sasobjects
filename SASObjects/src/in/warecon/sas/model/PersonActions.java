@@ -1,4 +1,4 @@
-package in.warecon.sas.objects;
+package in.warecon.sas.model;
 
 import java.util.ArrayList;
 

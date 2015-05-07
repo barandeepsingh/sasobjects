@@ -1,8 +1,11 @@
-package in.warecon.sas.objects;
+package in.warecon.sas.model;
 
 import java.util.ArrayList;
 
-public class Parent extends Person{
+import javax.persistence.Entity;
+
+@Entity
+public class Parent extends Person {
 	private int parentId;
 	private ArrayList<Student> children;
 

@@ -1,7 +1,11 @@
-package in.warecon.sas.objects;
+package in.warecon.sas.model;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Address {
 
+	private int addressId;
 	private String city;
 	private String country;
 	private String street;
