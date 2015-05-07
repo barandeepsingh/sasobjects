@@ -3,8 +3,7 @@
  */
 package in.warecon.sas.model;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Set;
 
@@ -16,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
+import javax.xml.bind.DatatypeConverter;
 
 /**
  * @author ebarasi
@@ -321,8 +321,7 @@ public class Person {
 	 */
 	public String getPassword() {
 
-		Base64.Decoder decoder = Base64.getDecoder();
-		byte[] decodedPassword = decoder.decode(password);
+		byte[] decodedPassword = DatatypeConverter.parseBase64Binary(password);
 
 		return new String(decodedPassword);
 	}
@@ -332,9 +331,15 @@ public class Person {
 	 *            the password to set encoded in Base64
 	 */
 	public void setPassword(String password) {
-		Base64.Encoder encoder = Base64.getEncoder();
-		String encodedPassword = encoder.encodeToString(password
-				.getBytes(StandardCharsets.UTF_8));
+		byte[] message = null;
+		try {
+			message = password.getBytes("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String encodedPassword = DatatypeConverter.printBase64Binary(message);
+		System.out.println(encodedPassword);
 		this.password = encodedPassword;
 	}
 
