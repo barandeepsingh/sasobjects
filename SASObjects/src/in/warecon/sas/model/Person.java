@@ -4,6 +4,8 @@
 package in.warecon.sas.model;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
@@ -14,6 +16,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.xml.bind.DatatypeConverter;
 
@@ -37,8 +42,9 @@ public class Person {
 	private String name;
 	private String gender;
 	private String email;
-	@OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
-	private Set<Address> address;
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "PERSON_ADDRESS", joinColumns = @JoinColumn(name = "PERSON_ID"), inverseJoinColumns = @JoinColumn(name = "ADDRESS_ID"))
+	private Collection<Address> address = new ArrayList<Address>();
 	private String mobile;
 	private String fax;
 	private String telephone;
@@ -47,8 +53,6 @@ public class Person {
 	private String motherName;
 	private String spouseName;
 	private int age;
-	private Date doj;// Date of joining
-	private Date dol;// Date of leaving
 	private String organizationName;
 	private boolean hasWhatsApp;
 	private String whatsAppNumber;
@@ -154,7 +158,7 @@ public class Person {
 	/**
 	 * @return the address
 	 */
-	public Set<Address> getAddress() {
+	public Collection<Address> getAddress() {
 		return address;
 	}
 
@@ -162,7 +166,7 @@ public class Person {
 	 * @param address
 	 *            the address to set
 	 */
-	public void setAddress(Set<Address> address) {
+	public void setAddress(Collection<Address> address) {
 		this.address = address;
 	}
 
@@ -272,36 +276,6 @@ public class Person {
 	}
 
 	/**
-	 * @return the doj
-	 */
-	public Date getDoj() {
-		return doj;
-	}
-
-	/**
-	 * @param doj
-	 *            the doj to set
-	 */
-	public void setDoj(Date doj) {
-		this.doj = doj;
-	}
-
-	/**
-	 * @return the dol
-	 */
-	public Date getDol() {
-		return dol;
-	}
-
-	/**
-	 * @param dol
-	 *            the dol to set
-	 */
-	public void setDol(Date dol) {
-		this.dol = dol;
-	}
-
-	/**
 	 * @return the username
 	 */
 	public String getUsername() {
@@ -335,7 +309,6 @@ public class Person {
 		try {
 			message = password.getBytes("UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		String encodedPassword = DatatypeConverter.printBase64Binary(message);

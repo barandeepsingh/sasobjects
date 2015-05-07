@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import javax.persistence.Entity;
 @Entity
 public class Subject {
+	
+	
 	private int subjectId;
 	private String subjectName;
 	private ArrayList<Book> books;

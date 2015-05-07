@@ -1,17 +1,25 @@
 package in.warecon.sas.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Student extends Person {
+
+	private Date doj;// Date of joining
+	private Date dol;// Date of leaving
 
 	private int rollNo;
 	private Genus genus;// Class
 	private int fees;
 	private Date lastFeesDate;
-
+	
+	private Collection<Subject> subjectsStudying = new ArrayList<Subject>();
+	
 	/**
 	 * @return the rollNo
 	 */
@@ -63,6 +71,22 @@ public class Student extends Person {
 
 	public void setGenus(Genus genus) {
 		this.genus = genus;
+	}
+
+	public Date getDoj() {
+		return doj;
+	}
+
+	public void setDoj(Date doj) {
+		this.doj = doj;
+	}
+
+	public Date getDol() {
+		return dol;
+	}
+
+	public void setDol(Date dol) {
+		this.dol = dol;
 	}
 
 }

@@ -1,16 +1,27 @@
 package in.warecon.sas.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Address {
 
-	private int addressId;
-	private String city;
-	private String country;
+	@ManyToMany(mappedBy = "address")
+	//@NotFound(action = NotFoundAction.IGNORE)
+	private Collection<Person> personList = new ArrayList<Person>();
+
+	private String houseNo;
 	private String street;
+	private String city;
+	private String state;
+	private String country;
 	private String locality;
+	private String landmark;
 	private String pincode;
+	private AddressType addressType;
 
 	/**
 	 * @return the city
@@ -85,6 +96,46 @@ public class Address {
 	 */
 	public void setPincode(String pincode) {
 		this.pincode = pincode;
+	}
+
+	public Collection<Person> getPerson() {
+		return personList;
+	}
+
+	public void setPerson(Collection<Person> personList) {
+		this.personList = personList;
+	}
+
+	public String getHouseNo() {
+		return houseNo;
+	}
+
+	public void setHouseNo(String houseNo) {
+		this.houseNo = houseNo;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getLandmark() {
+		return landmark;
+	}
+
+	public void setLandmark(String landmark) {
+		this.landmark = landmark;
+	}
+
+	public AddressType getAddressType() {
+		return addressType;
+	}
+
+	public void setAddressType(AddressType addressType) {
+		this.addressType = addressType;
 	}
 
 }
