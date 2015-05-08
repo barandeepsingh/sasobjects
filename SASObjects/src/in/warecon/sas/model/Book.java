@@ -1,15 +1,31 @@
 package in.warecon.sas.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Book {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(unique=true)
 	private int bookId;
 	private String bookName;
 	private String author;
 	private String isbn;
 	private Subject subject;
 	private String edition;
+	@ManyToMany
+	@JoinTable(name="BOOK_GENUS",joinColumns=@JoinColumn(name="BOOK_ID"),inverseJoinColumns=@JoinColumn(name="GENUS_ID"))
+	private Collection<Genus> genusList = new ArrayList<Genus>();
 
 	/**
 	 * @return the bookId

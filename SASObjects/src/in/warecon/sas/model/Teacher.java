@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Teacher extends Person {
@@ -19,10 +20,11 @@ public class Teacher extends Person {
 	private int employeeNo;
 	private boolean isMarried;
 	private boolean isClassTeacher;
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinTable(name="TEACHER_GENUS",joinColumns=@JoinColumn(name="TEACHER_ID"),inverseJoinColumns=@JoinColumn(name="GENUS_ID"))
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "TEACHER_GENUS", joinColumns = @JoinColumn(name = "TEACHER_ID"), inverseJoinColumns = @JoinColumn(name = "GENUS_ID"))
 	private Collection<Genus> classesTaught = new ArrayList<Genus>();
-
+	@OneToOne
+	@JoinTable(name = "TEACHER_GENUS")
 	private Genus isClassTeacherOf;
 	private int salary;
 	@ManyToMany

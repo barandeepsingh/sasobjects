@@ -3,13 +3,15 @@
  */
 package in.warecon.sas.model;
 
+import in.warecon.sas.model.enums.SalutationType;
+
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +21,6 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.xml.bind.DatatypeConverter;
 
 /**
@@ -30,12 +31,13 @@ import javax.xml.bind.DatatypeConverter;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Person {
 	@Id
+	@Column(unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	// Surrogate key acts as PK
 	private int id;
 	private String username;
 	private String password;
-	private Salutation salutation;
+	private SalutationType salutation;
 	private String firstName;
 	private String middleName;
 	private String lastName;
@@ -51,7 +53,6 @@ public class Person {
 	private Date dob;// Date of birth
 	private String fatherName;
 	private String motherName;
-	private String spouseName;
 	private int age;
 	private String organizationName;
 	private boolean hasWhatsApp;
@@ -316,11 +317,11 @@ public class Person {
 		this.password = encodedPassword;
 	}
 
-	public Salutation getSalutation() {
+	public SalutationType getSalutation() {
 		return salutation;
 	}
 
-	public void setSalutation(Salutation salutation) {
+	public void setSalutation(SalutationType salutation) {
 		this.salutation = salutation;
 	}
 
@@ -346,14 +347,6 @@ public class Person {
 
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
-	}
-
-	public String getSpouseName() {
-		return spouseName;
-	}
-
-	public void setSpouseName(String spouseName) {
-		this.spouseName = spouseName;
 	}
 
 	public boolean isHasWhatsApp() {

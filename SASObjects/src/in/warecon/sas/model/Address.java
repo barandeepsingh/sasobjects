@@ -1,5 +1,7 @@
 package in.warecon.sas.model;
 
+import in.warecon.sas.model.enums.AddressType;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -12,7 +14,6 @@ public class Address {
 	@ManyToMany(mappedBy = "address")
 	//@NotFound(action = NotFoundAction.IGNORE)
 	private Collection<Person> personList = new ArrayList<Person>();
-
 	private String houseNo;
 	private String street;
 	private String city;

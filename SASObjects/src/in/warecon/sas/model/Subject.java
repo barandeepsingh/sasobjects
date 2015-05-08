@@ -1,15 +1,30 @@
 package in.warecon.sas.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
 @Entity
 public class Subject {
-	
-	
+	@ManyToMany(mappedBy = "subjectsStudying")
+	private Collection<Student> studentsList = new ArrayList<Student>();
+	@Id
+	@Column(unique = true)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int subjectId;
 	private String subjectName;
-	private ArrayList<Book> books;
+	@OneToMany
+	@JoinTable(name = "SUBJECT_BOOKS", joinColumns = @JoinColumn(name = "SUBJECT_ID"), inverseJoinColumns = @JoinColumn(name = "BOOK_ID"))
+	private Collection<Book> books = new ArrayList<Book>();
 
 	/**
 	 * @return the subjectId
@@ -41,18 +56,11 @@ public class Subject {
 		this.subjectName = subjectName;
 	}
 
-	/**
-	 * @return the books
-	 */
-	public ArrayList<Book> getBooks() {
+	public Collection<Book> getBooks() {
 		return books;
 	}
 
-	/**
-	 * @param books
-	 *            the books to set
-	 */
-	public void setBooks(ArrayList<Book> books) {
+	public void setBooks(Collection<Book> books) {
 		this.books = books;
 	}
 

@@ -1,34 +1,30 @@
 package in.warecon.sas.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Parent extends Person {
-	private int parentId;
-	private ArrayList<Student> children;
+
+	@ManyToMany
+	@JoinTable(name = "PARENT_CHILD", joinColumns = @JoinColumn(name = "PARENT_ID"), inverseJoinColumns = @JoinColumn(name = "CHILD_ID"))
+	private Collection<Student> children = new ArrayList<Student>();
 
 	/**
 	 * @return the parentId
 	 */
-	public int getParentId() {
-		return parentId;
-	}
 
-	/**
-	 * @param parentId
-	 *            the parentId to set
-	 */
-	public void setParentId(int parentId) {
-		this.parentId = parentId;
-	}
-
-	/**
-	 * @return the children
-	 */
-	public ArrayList<Student> getChildren() {
+	public Collection<Student> getChildren() {
 		return children;
+	}
+
+	public void setChildren(Collection<Student> children) {
+		this.children = children;
 	}
 
 	/**

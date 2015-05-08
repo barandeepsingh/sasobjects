@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 @Entity
@@ -12,14 +14,16 @@ public class Student extends Person {
 
 	private Date doj;// Date of joining
 	private Date dol;// Date of leaving
-
+	@ManyToMany(mappedBy="children")
+	private Collection<Parent> parents = new ArrayList<Parent>();
 	private int rollNo;
 	private Genus genus;// Class
 	private int fees;
 	private Date lastFeesDate;
-	
+	@ManyToMany
+	@JoinTable(name = "STUDENT_SUBJECT", joinColumns = @JoinColumn(name = "STUDENT_ID"), inverseJoinColumns = @JoinColumn(name = "SUBJECT_ID"))
 	private Collection<Subject> subjectsStudying = new ArrayList<Subject>();
-	
+
 	/**
 	 * @return the rollNo
 	 */

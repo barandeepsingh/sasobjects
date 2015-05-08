@@ -1,30 +1,12 @@
 package in.warecon.sas.model;
 
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 
 @Entity
-
 public class Admin extends Person {
-	private int employeeNo;
 	private boolean isMarried;
 	private int salary;
 
-	/**
-	 * @return the employeeNo
-	 */
-	public int getEmployeeNo() {
-		return employeeNo;
-	}
-
-	/**
-	 * @param employeeNo
-	 *            the employeeNo to set
-	 */
-	public void setEmployeeNo(int employeeNo) {
-		this.employeeNo = employeeNo;
-	}
 
 	/**
 	 * @return the isMarried
