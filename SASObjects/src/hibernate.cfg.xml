@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM 
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.dialect">
+			org.hibernate.dialect.MySQLDialect
+		</property>
+		<property name="hibernate.connection.driver_class">
+			com.mysql.jdbc.Driver
+		</property>
+
+		<!-- Assume test is the database name -->
+		<property name="hibernate.connection.url">
+			jdbc:mysql://localhost:3306/sas
+		</property>
+		<property name="hibernate.connection.username">
+			root
+		</property>
+		<property name="hibernate.connection.password">
+			root
+		</property>
+		<property name="current_session_context_class">thread</property>
+		<property name="hibernate.show_sql">false</property>
+		<property name="hbm2ddl.auto">create</property>
+		<mapping class="in.warecon.sas.model.Address" />
+		<mapping class="in.warecon.sas.model.Admin" />
+		<mapping class="in.warecon.sas.model.Book" />
+		<mapping class="in.warecon.sas.model.Genus" />
+		<mapping class="in.warecon.sas.model.Parent" />
+		<mapping class="in.warecon.sas.model.Person" />
+		<mapping class="in.warecon.sas.model.Student" />
+		<mapping class="in.warecon.sas.model.Subject" />
+		<mapping class="in.warecon.sas.model.Teacher" />
+	</session-factory>
+</hibernate-configuration>
