@@ -20,7 +20,7 @@ public class Subject {
 	@Id
 	@Column(unique = true)
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int subjectId;
+	private long subjectId;
 	private String subjectName;
 	@OneToMany
 	@JoinTable(name = "SUBJECT_BOOKS", joinColumns = @JoinColumn(name = "SUBJECT_ID"), inverseJoinColumns = @JoinColumn(name = "BOOK_ID"))
@@ -29,7 +29,7 @@ public class Subject {
 	/**
 	 * @return the subjectId
 	 */
-	public int getSubjectId() {
+	public long getSubjectId() {
 		return subjectId;
 	}
 
@@ -37,7 +37,7 @@ public class Subject {
 	 * @param subjectId
 	 *            the subjectId to set
 	 */
-	public void setSubjectId(int subjectId) {
+	public void setSubjectId(long subjectId) {
 		this.subjectId = subjectId;
 	}
 

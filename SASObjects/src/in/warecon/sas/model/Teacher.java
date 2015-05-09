@@ -16,7 +16,6 @@ import javax.persistence.OneToOne;
 public class Teacher extends Person {
 	private Date doj;// Date of joining
 	private Date dol;// Date of leaving
-
 	private int employeeNo;
 	private boolean isMarried;
 	private boolean isClassTeacher;

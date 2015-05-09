@@ -6,13 +6,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
 public class Address {
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long addressId;
 	@ManyToMany(mappedBy = "address")
-	//@NotFound(action = NotFoundAction.IGNORE)
+	// @NotFound(action = NotFoundAction.IGNORE)
 	private Collection<Person> personList = new ArrayList<Person>();
 	private String houseNo;
 	private String street;

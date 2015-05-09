@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
@@ -11,18 +14,20 @@ import javax.persistence.OneToOne;
 // Genus is synonym for Class.Class is a reserved word in Java and SQL so can
 // cause issues
 public class Genus {
-	private int classId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long classId;
 	private String grade;
 	private String section;
-	@OneToOne(mappedBy="isClassTeacherOf")
-	private Teacher teacherOfGenus; 
+	@OneToOne(mappedBy = "isClassTeacherOf")
+	private Teacher teacherOfGenus;
 	@ManyToMany(mappedBy = "genusList")
 	private Collection<Book> booksList = new ArrayList<Book>();
 
 	/**
 	 * @return the classId
 	 */
-	public int getClassId() {
+	public long getClassId() {
 		return classId;
 	}
 
@@ -30,7 +35,7 @@ public class Genus {
 	 * @param classId
 	 *            the classId to set
 	 */
-	public void setClassId(int classId) {
+	public void setClassId(long classId) {
 		this.classId = classId;
 	}
 
